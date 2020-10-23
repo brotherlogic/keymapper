@@ -67,7 +67,7 @@ func main() {
 	server.PrepServer()
 	server.Register = server
 
-	err := server.RegisterServerV2("basicjob", false, true)
+	err := server.RegisterServerV2("keymapper", false, true)
 	if err != nil {
 		return
 	}
