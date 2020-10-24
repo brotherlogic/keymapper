@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package keymapper;
+
+option go_package = "github.com/brotherlogic/keymapper/proto";
+
+message Keys {
+  repeated Key keys = 1;
+}
+
+message Key {
+  string key = 1;
+  string value = 2;
+}
+
+message GetRequest {
+  string key = 1;
+}
+
+message GetResponse {
+  Key key = 2;
+}
+
+message SetRequest {
+  string key = 1;
+  string value = 2;
+}
+
+message SetResponse {}
+
+service KeymapperService {
+  rpc Get(GetRequest) returns (GetResponse) {};
+  rpc Set(SetRequest) returns (SetResponse) {};
+}
