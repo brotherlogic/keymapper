@@ -4,6 +4,8 @@ import (
 	"fmt"
 
 	"golang.org/x/net/context"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 
 	pb "github.com/brotherlogic/keymapper/proto"
 )
@@ -34,7 +36,10 @@ func (s *Server) Get(ctx context.Context, req *pb.GetRequest) (*pb.GetResponse, 
 func (s *Server) Set(ctx context.Context, req *pb.SetRequest) (*pb.SetResponse, error) {
 	data, _, err := s.KSclient.Read(ctx, CONFIG, &pb.Keys{})
 	if err != nil {
-		return nil, err
+		if status.Convert(err).Code() != codes.InvalidArgument {
+			return nil, err
+		}
+		data = &pb.Keys{}
 	}
 	keys := data.(*pb.Keys)
 

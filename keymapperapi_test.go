@@ -45,6 +45,16 @@ func TestBadSet(t *testing.T) {
 	}
 }
 
+func TestEmptySet(t *testing.T) {
+	s := InitTest()
+	s.GoServer.KSclient = *keystoreclient.GetTestClient("./sptest")
+
+	r, err := s.Set(context.Background(), &pb.SetRequest{Key: "testkey", Value: "donkey"})
+	if err != nil {
+		t.Errorf("Bad request: %v", r)
+	}
+}
+
 func TestBadGet(t *testing.T) {
 	s := InitTest()
 	s.GoServer.KSclient.Fail = true
