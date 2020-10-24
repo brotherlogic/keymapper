@@ -45,5 +45,5 @@ func (s *Server) Set(ctx context.Context, req *pb.SetRequest) (*pb.SetResponse, 
 
 	keys.Keys = append(keys.Keys, &pb.Key{Key: req.GetKey(), Value: req.GetValue()})
 
-	return nil, s.KSclient.Save(ctx, CONFIG, keys)
+	return &pb.SetResponse{}, s.KSclient.Save(ctx, CONFIG, keys)
 }

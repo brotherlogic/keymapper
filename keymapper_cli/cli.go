@@ -29,7 +29,7 @@ func main() {
 	case "set":
 		_, err := client.Set(ctx, &pb.SetRequest{Key: os.Args[2], Value: os.Args[3]})
 		if err != nil {
-			log.Fatalf("Error on Add Record: %v", err)
+			log.Fatalf("Error on set: %v", err)
 		}
 	case "get":
 		res, err := client.Get(ctx, &pb.GetRequest{Key: os.Args[2]})
