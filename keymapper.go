@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"io/ioutil"
 	"log"
 
@@ -70,5 +69,5 @@ func main() {
 		return
 	}
 
-	fmt.Printf("%v", server.Serve())
+	server.Serve()
 }
