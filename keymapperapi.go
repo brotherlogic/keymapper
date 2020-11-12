@@ -17,11 +17,11 @@ const (
 
 //Get a key
 func (s *Server) Get(ctx context.Context, req *pb.GetRequest) (*pb.GetResponse, error) {
-	data, _, err := s.KSclient.Read(ctx, CONFIG, &pb.Keys{})
+	keys := &pb.Keys{}
+	err := s.Store.Load(ctx, CONFIG, keys)
 	if err != nil {
 		return nil, err
 	}
-	keys := data.(*pb.Keys)
 
 	for _, key := range keys.GetKeys() {
 		if key.GetKey() == req.GetKey() {
@@ -34,16 +34,15 @@ func (s *Server) Get(ctx context.Context, req *pb.GetRequest) (*pb.GetResponse, 
 
 //Set a key
 func (s *Server) Set(ctx context.Context, req *pb.SetRequest) (*pb.SetResponse, error) {
-	data, _, err := s.KSclient.Read(ctx, CONFIG, &pb.Keys{})
+	keys := &pb.Keys{}
+	err := s.Store.Load(ctx, CONFIG, keys)
 	if err != nil {
 		if status.Convert(err).Code() != codes.InvalidArgument {
 			return nil, err
 		}
-		data = &pb.Keys{}
 	}
-	keys := data.(*pb.Keys)
 
 	keys.Keys = append(keys.Keys, &pb.Key{Key: req.GetKey(), Value: req.GetValue()})
 
-	return nil, s.KSclient.Save(ctx, CONFIG, keys)
+	return nil, s.Store.Save(ctx, CONFIG, keys)
 }
