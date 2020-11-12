@@ -12,8 +12,7 @@ import (
 func InitTest() *Server {
 	s := Init()
 	s.SkipLog = true
-	s.GoServer.KSclient = *keystoreclient.GetTestClient("./testing")
-	s.GoServer.KSclient.Save(context.Background(), CONFIG, &pb.Keys{})
+	s.Store = s.NewMemoryStore()
 	return s
 }
 
@@ -22,7 +21,7 @@ func TestBasic(t *testing.T) {
 
 	_, err := s.Set(context.Background(), &pb.SetRequest{Key: "testkey", Value: "donkey"})
 	if err != nil {
-		t.Errorf("Bad request: %v", err)
+		t.Errorf("Bad set request: %v", err)
 	}
 
 	resp, err := s.Get(context.Background(), &pb.GetRequest{Key: "testkey"})
@@ -37,7 +36,7 @@ func TestBasic(t *testing.T) {
 
 func TestBadSet(t *testing.T) {
 	s := InitTest()
-	s.GoServer.KSclient.Fail = true
+	s.Store = s.NewFailMemoryStore()
 
 	r, err := s.Set(context.Background(), &pb.SetRequest{Key: "testkey", Value: "donkey"})
 	if err == nil {
