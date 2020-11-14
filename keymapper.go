@@ -20,10 +20,9 @@ type Server struct {
 
 // Init builds the server
 func Init() *Server {
-	s := &Server{
+	return &Server{
 		GoServer: &goserver.GoServer{},
 	}
-	return s
 }
 
 // DoRegister does RPC registration
