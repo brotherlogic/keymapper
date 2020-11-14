@@ -61,6 +61,8 @@ func main() {
 		log.SetOutput(ioutil.Discard)
 	}
 	server := Init()
+	// Turn on datastore
+	server.FlagUseDataStore = true
 	server.PrepServer()
 	server.Register = server
 
