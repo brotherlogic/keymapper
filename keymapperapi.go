@@ -12,7 +12,7 @@ import (
 
 const (
 	// CONFIG - key storage location
-	CONFIG = "/github.com/brotherlogic/keymapper/config"
+	CONFIG = "github.com/brotherlogic/keymapper/config"
 )
 
 //Get a key
