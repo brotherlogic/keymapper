@@ -34,6 +34,38 @@ func TestBasic(t *testing.T) {
 	}
 }
 
+func TestDoubleSet(t *testing.T) {
+	s := InitTest()
+
+	_, err := s.Set(context.Background(), &pb.SetRequest{Key: "testkey", Value: "donkey"})
+	if err != nil {
+		t.Errorf("Bad set request: %v", err)
+	}
+
+	resp, err := s.Get(context.Background(), &pb.GetRequest{Key: "testkey"})
+	if err != nil {
+		t.Errorf("Bad get request: %v", err)
+	}
+
+	if resp.GetKey().GetValue() != "donkey" {
+		t.Errorf("Bad return: %v", resp)
+	}
+
+	_, err = s.Set(context.Background(), &pb.SetRequest{Key: "testkey", Value: "newdonkey"})
+	if err != nil {
+		t.Errorf("Bad set request: %v", err)
+	}
+
+	resp, err = s.Get(context.Background(), &pb.GetRequest{Key: "testkey"})
+	if err != nil {
+		t.Errorf("Bad get request: %v", err)
+	}
+
+	if resp.GetKey().GetValue() != "newdonkey" {
+		t.Errorf("Bad return: %v", resp)
+	}
+}
+
 func TestBadSet(t *testing.T) {
 	s := InitTest()
 	s.Store = s.NewFailMemoryStore()

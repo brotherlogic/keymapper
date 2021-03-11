@@ -42,7 +42,17 @@ func (s *Server) Set(ctx context.Context, req *pb.SetRequest) (*pb.SetResponse, 
 		}
 	}
 
-	keys.Keys = append(keys.Keys, &pb.Key{Key: req.GetKey(), Value: req.GetValue()})
+	found := false
+	for _, k := range keys.Keys {
+		if k.GetKey() == req.GetKey() {
+			k.Value = req.GetValue()
+			found = true
+		}
+	}
+
+	if !found {
+		keys.Keys = append(keys.Keys, &pb.Key{Key: req.GetKey(), Value: req.GetValue()})
+	}
 
 	return &pb.SetResponse{}, s.Store.Save(ctx, CONFIG, keys)
 }
