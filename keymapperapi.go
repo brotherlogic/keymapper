@@ -29,7 +29,7 @@ func (s *Server) Get(ctx context.Context, req *pb.GetRequest) (*pb.GetResponse, 
 		}
 	}
 
-	return nil, fmt.Errorf("Cannot find key: %v", req.GetKey())
+	return &pb.GetResponse{}, fmt.Errorf("Cannot find key: %v", req.GetKey())
 }
 
 //Set a key
@@ -44,5 +44,5 @@ func (s *Server) Set(ctx context.Context, req *pb.SetRequest) (*pb.SetResponse, 
 
 	keys.Keys = append(keys.Keys, &pb.Key{Key: req.GetKey(), Value: req.GetValue()})
 
-	return nil, s.Store.Save(ctx, CONFIG, keys)
+	return &pb.SetResponse{}, s.Store.Save(ctx, CONFIG, keys)
 }
