@@ -8,9 +8,6 @@ import (
 	"github.com/brotherlogic/goserver/utils"
 
 	pb "github.com/brotherlogic/keymapper/proto"
-
-	//Needed to pull in gzip encoding init
-	_ "google.golang.org/grpc/encoding/gzip"
 )
 
 func main() {
