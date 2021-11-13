@@ -61,7 +61,7 @@ func main() {
 	}
 	server := Init()
 	// Turn on datastore
-	server.FlagUseDataStore = true
+	server.FlagUseDStore = true
 	server.PrepServer()
 	server.Register = server
 
