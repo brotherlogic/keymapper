@@ -3,13 +3,12 @@ module github.com/brotherlogic/keymapper
 go 1.13
 
 require (
-	github.com/brotherlogic/gobuildslave v0.0.0-20211123163533-a45becd5bbe9 // indirect
-	github.com/brotherlogic/goserver v0.0.0-20211122204226-83dd5b358113
-	github.com/brotherlogic/keystore v0.0.0-20201029130503-da423c07fd79
-	github.com/brotherlogic/logging v0.0.0-20211123154347-7e6659d9e537 // indirect
+	github.com/brotherlogic/discovery v0.0.0-20220424202222-d3a91d62ee1a // indirect
+	github.com/brotherlogic/goserver v0.0.0-20220423235535-bd416e717c2c
+	github.com/brotherlogic/keystore v0.0.0-20220326232252-29f315526691
 	github.com/golang/protobuf v1.5.2
-	github.com/prometheus/client_golang v1.11.0
-	golang.org/x/net v0.0.0-20211118161319-6a13c67c3ce4
-	google.golang.org/grpc v1.42.0
-	google.golang.org/protobuf v1.27.1
+	github.com/prometheus/client_golang v1.12.1
+	golang.org/x/net v0.0.0-20220421235706-1d1ef9303861
+	google.golang.org/grpc v1.46.0
+	google.golang.org/protobuf v1.28.0
 )
