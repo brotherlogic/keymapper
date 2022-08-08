@@ -62,10 +62,10 @@ func main() {
 	server := Init()
 	// Turn on datastore
 	server.FlagUseDStore = true
-	server.PrepServer()
+	server.PrepServer("keymapper")
 	server.Register = server
 
-	err := server.RegisterServerV2("keymapper", false, true)
+	err := server.RegisterServerV2(false)
 	if err != nil {
 		return
 	}
