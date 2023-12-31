@@ -10,7 +10,7 @@ on:
 
 jobs:
   checks:
-    name: basicassess
+    name: basic_assess
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -19,16 +19,16 @@ jobs:
     - name: Setup Go
       uses: actions/setup-go@v2
       with:
-        go-version: '1.13.14'
+        go-version: '1.19'
 
     - name: Run build
       run: go build github.com/${GITHUB_REPOSITORY}
 
     - name: Run test
-      run: go test github.com/brotherlogic/keymapper/ -coverprofile=profile.cov
+      run: go test github.com/${GITHUB_REPOSITORY} -coverprofile=profile.cov
     
     - name: Coveralls
       uses: shogo82148/actions-goveralls@v1
       with:
         path-to-profile: profile.cov
-        ignore: keymapper.go
+        ignore: recordfanout.go

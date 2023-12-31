@@ -21,11 +21,11 @@ var (
 	//KeySize - the print queue
 	KeySize = promauto.NewGauge(prometheus.GaugeOpts{
 		Name: "keymapper_keys",
-		Help: "The size of the print queue",
+		Help: "Number of keys",
 	})
 )
 
-//Get a key
+// Get a key
 func (s *Server) Get(ctx context.Context, req *pb.GetRequest) (*pb.GetResponse, error) {
 	keys := &pb.Keys{}
 	err := s.Store.Load(ctx, CONFIG, keys)
@@ -44,7 +44,7 @@ func (s *Server) Get(ctx context.Context, req *pb.GetRequest) (*pb.GetResponse, 
 	return &pb.GetResponse{}, fmt.Errorf("Cannot find key: %v", req.GetKey())
 }
 
-//Set a key
+// Set a key
 func (s *Server) Set(ctx context.Context, req *pb.SetRequest) (*pb.SetResponse, error) {
 	keys := &pb.Keys{}
 	err := s.Store.Load(ctx, CONFIG, keys)
